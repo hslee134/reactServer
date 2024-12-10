@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: true  # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
+      path: /h2  # H2 Console의 Path
+      settings.web-allow-others: true
+  datasource:
+    #driver-class-name: org.h2.Driver  # Database를 H2로 설정
+    #url: jdbc:h2:mem:testdb  # H2 접속 정보
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #MyBatis 설정
+    url: jdbc:log4jdbc:h2:mem:testdb #MyBatis 설정
+    username: test  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+    password: 1 # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
+  # JPA 설정
+  jpa:
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+# Mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: false
+# 쿼리 로그 관련 설정
+logging:
+  level:
+    jdbc:
+      sqlonly: OFF
+      sqltiming: INFO
+      resultsettable: OFF
+      audit: OFF
+      resultset: OFF
+      connection: OFF
